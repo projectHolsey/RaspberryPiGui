@@ -29,7 +29,98 @@ let ApiKey = 'ME727NEVFDFPU4AE2BNKCZY53'
 let tempcond1 = null;
 let handp1 = null;
 let riseData1 = null;
+let forecast = [];
+let forecastdays = [];
 
+
+function getForecast() {
+    
+    // get current time as unix (S) - 4h for east coast..
+    let currentTime = (Date.now() / 1000) - (60 * 60 * 4)
+    // get 7 day forecast ahead
+    let targetDate = currentTime + (60 * 60 * 24 * 7)
+       
+    // This is the core of our weather query URL
+    let BaseURL = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/'
+
+    //UnitGroup sets the units of the output - us or metric
+    let UnitGroup='metric'
+
+    //Location for the weather data
+
+    //Optional start and end dates
+    //If nothing is specified, the forecast is retrieved. 
+    //If start date only is specified, a single historical or forecast day will be retrieved
+    //If both start and and end date are specified, a date range will be retrieved
+    let StartDate = ''
+    let EndDate=''
+
+    //JSON or CSV 
+    //JSON format supports daily, hourly, current conditions, weather alerts and events in a single JSON package
+    //CSV format requires an 'include' parameter below to indicate which table section is required
+    let ContentType="json"
+
+    //include sections
+    //values include days,hours,current,alerts
+    let Include="days"
+
+
+    console.log('')
+    console.log(' - Requesting weather : ')
+
+    //basic query including location
+    let ApiQuery=BaseURL + cIty
+
+    //append the start and end date if present
+    if (String(StartDate).length){
+        ApiQuery+="/"+StartDate
+        if (String(EndDate).length){
+            ApiQuery+="/"+EndDate
+        }
+    }
+
+    //Url is completed. Now add query parameters (could be passed as GET or POST)
+    ApiQuery+="?"
+    //append each parameter as necessary
+    if (String(UnitGroup).length)
+        ApiQuery+="&unitGroup="+UnitGroup
+
+    if (String(ContentType).length)
+        ApiQuery+="&contentType="+ContentType
+
+    if (String(Include).length)
+        ApiQuery+="&include="+Include
+
+    ApiQuery+="&key="+ApiKey
+
+
+
+    console.log(' - Running query URL: ', ApiQuery)
+    console.log()
+
+    fetch(ApiQuery)
+    .then(response => response.json())
+    .then(weatherData => {
+    
+        console.log(weatherData);
+
+        for (let i = 0; i < weatherData['days'].length; i++) {
+            console.log(i['feelslike'])
+            forecast.push(String(i['feelslike']))
+            forecastdays.push(i['datetime'].slice(i['datetime'].length - 5, i['datetime'].length));
+        }
+
+        forecast = forecast.slice(0, 7);  // only want first 7 days
+        forecastdays = forecastdays.slice(0, 7);  // only want first 7 days
+    })
+    .catch((error) => {
+        console.log(error)
+    });
+    
+
+    setInterval(getForecast, 21600000)
+    // root.after(21600000,getForecast)
+}
 
 
 function getdata () {
@@ -89,7 +180,7 @@ function rise() {
 
 
 // creating a list of all the potential layouts=c
-let layouts = [1,2,3];
+let layouts = [1,2,3,4];
 
 /**
  * Function creates the layouts for each quadrant
@@ -111,6 +202,9 @@ function createLayout(number) {
     }
     if (number == 3) {
         return createLayout3();
+    }
+    if (number == 4) {
+        return createLayout4();
     }
 
     function createLayout1() {
@@ -137,6 +231,13 @@ function createLayout(number) {
         return layout3;
     }
 
+    function createLayout4() {
+        let layout4 = document.createElement('div');
+        let label4 = document.createElement('label');
+        label4.innerHTML = forecast;
+        layout4.appendChild(label4);
+        return layout4;
+    }
 
 }
 
@@ -163,7 +264,7 @@ function changeLayout(divElement) {
     divElement.removeChild(childElement);
     
     // reset the counter
-    if (divContainers[divElement.id] == 3) {
+    if (divContainers[divElement.id] == 4) {
         divContainers[divElement.id] = 1
     } else {
         // increment the counter
@@ -217,7 +318,8 @@ function main() {
 
     // start the 2 functions polling for data in background
     getdata();
-    rise()
+    rise();
+    getForecast();
 
     const screenHeight = 400;
     const screenWidth = 700;
