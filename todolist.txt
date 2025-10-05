@@ -1,0 +1,22 @@
+Listing some items for this project's to do Listing
+
+( Luckily, the older me dealth with most of the API stuff so i don't need to go back in and get more data... Kinda just need to format the styles on the page )
+
+# 1 - 
+    - Go through with suzi to find what items we might want displayed on screen
+    - make a list of what would and wouldn't be useful
+        - E.g - Something saying whether we need the garbage taking out
+        - E.g - Random brazilian word to learn
+        - E.g - todo list
+
+# 2 -
+    - split the page into 4 items instead of just 2
+        - Make them equal in height and width
+        ... Or make a full new layout
+
+# 3 - Decide what kind of icons we want, and download a bunch of them for use 
+    - E.g Bin icons
+    - E.g weather icons..
+
+#4 - Make new layouts for each of the items, explaining what we want in each of them
+

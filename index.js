@@ -76,10 +76,26 @@ function createLayout(number) {
 
     function layoutForecast() {
         let layout4 = document.createElement('div');
-        let label4 = document.createElement('label');
-        console.log(myGlobalVars["forecast"]);
-        label4.innerHTML = myGlobalVars["forecast"];;
-        layout4.appendChild(label4);
+        layout4.style.display = "block";
+        for (let i = 0; i < myGlobalVars["forecastdays"].length; i++) {
+            
+            let tmpDiv = document.createElement("div");
+            tmpDiv.style.display = "block";
+            
+            let label = document.createElement('label');
+            label.innerHTML = myGlobalVars["forecastdays"][i];
+
+            let label1 = document.createElement('label');
+            label1.innerHTML = " : ";
+            
+            let label4 = document.createElement('label');
+            label4.innerHTML = myGlobalVars["forecast"][i] + "C";
+            
+            tmpDiv.appendChild(label);
+            tmpDiv.appendChild(label1);
+            tmpDiv.appendChild(label4);
+            layout4.appendChild(tmpDiv);
+        }
         return layout4;
     }
 
