@@ -1,3 +1,7 @@
+
+import { myGlobalVars } from "./dataGlobals.js"
+
+
 //Enter your City as per the format from Openweathermap.org
 let cIty="Boston,US"
 // Visual crossing API key for forecast - www.visualcrossing.com/
@@ -77,15 +81,16 @@ export function getForecast() {
 
         for (let i = 0; i < weatherData['days'].length; i++) {
             console.log(weatherData["days"][i]['feelslike'])
-            forecast.push(String(weatherData["days"][i]['feelslike']))
-            forecastdays.push(weatherData["days"][i]['datetime'].slice(weatherData["days"][i]['datetime'].length - 5, weatherData["days"][i]['datetime'].length));
+            myGlobalVars["forecast"].push(String(weatherData["days"][i]['feelslike']))
+            myGlobalVars["forecastdays"].push(weatherData["days"][i]['datetime'].slice(weatherData["days"][i]['datetime'].length - 5, weatherData["days"][i]['datetime'].length));
         }
 
-        forecast = forecast.slice(0, 7);  // only want first 7 days
-        forecastdays = forecastdays.slice(0, 7);  // only want first 7 days
+        myGlobalVars["forecast"] = myGlobalVars["forecast"].slice(0, 7);  // only want first 7 days
 
-        console.log(forecast);
-        console.log(forecastdays);
+        myGlobalVars["forecastdays"] = myGlobalVars["forecastdays"].slice(0, 7);  // only want first 7 days
+
+        console.log(myGlobalVars["forecast"]);
+        console.log(myGlobalVars["forecastdays"]);
     })
     .catch((error) => {
         console.log(error)

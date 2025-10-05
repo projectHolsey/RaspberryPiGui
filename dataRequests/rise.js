@@ -16,7 +16,7 @@ export function rise() {
         let moonrise = data['moonrise']
         let sunrise = data['sunrise']
     
-        riseData1= ("Sunrise : " + sunrise + "     Mooonrise : " + moonrise )
+        let riseData1= ("Sunrise : " + sunrise + "     Mooonrise : " + moonrise )
         
     })
     .catch((error) => {

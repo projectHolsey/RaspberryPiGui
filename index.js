@@ -3,21 +3,19 @@ import { getForecast } from "./dataRequests/forecast.js";
 import { rise } from "./dataRequests/rise.js";
 import { getWeather}  from "./dataRequests/currentTemp.js";
 
+import { myGlobalVars } from "./dataRequests/dataGlobals.js"
 
 // Creating an array for the number of divs on screen
 let divContainers = {};
 let divCountainerCountCount = 0;
 
 // temp globals
-let tempcond1 = null;
+
 let handp1 = null;
 
 // rise globals
 let riseData1 = null;
 
-// forecast globals
-let forecast = [];
-let forecastdays = [];
 
 
 // call the function every 10 minutes
@@ -63,7 +61,7 @@ function createLayout(number) {
     function layoutCurTemp() {
         let layout2 = document.createElement('div');
         let label2 = document.createElement('label');
-        label2.innerHTML = tempcond1;
+        label2.innerHTML = myGlobalVars["tempcond"];
         layout2.appendChild(label2);
         return layout2;
     }
@@ -71,7 +69,7 @@ function createLayout(number) {
     function layoutRiseData() {
         let layout3 = document.createElement('div');
         let label3 = document.createElement('label');
-        label3.innerHTML = riseData1;
+        label3.innerHTML = myGlobalVars["riseData"];
         layout3.appendChild(label3);
         return layout3;
     }
@@ -79,8 +77,8 @@ function createLayout(number) {
     function layoutForecast() {
         let layout4 = document.createElement('div');
         let label4 = document.createElement('label');
-        console.log(forecast);
-        label4.innerHTML = forecast;
+        console.log(myGlobalVars["forecast"]);
+        label4.innerHTML = myGlobalVars["forecast"];;
         layout4.appendChild(label4);
         return layout4;
     }
@@ -190,7 +188,7 @@ function main() {
                 process.exit(0);
             }
         } else {
-            time = Date.now();
+            let time = Date.now();
             counter += 1;
         }
 
