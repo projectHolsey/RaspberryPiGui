@@ -1,3 +1,6 @@
+
+import { myGlobalVars } from "./dataGlobals.js"
+
 //For Sunrise and Moonrise get your free Api key from ipgeolocation.io
 let iPgeoAPI="3ff332c420ca4793ac965c97b66625f3"
 //Enter your Location's Latitude
@@ -16,7 +19,7 @@ export function rise() {
         let moonrise = data['moonrise']
         let sunrise = data['sunrise']
     
-        let riseData1= ("Sunrise : " + sunrise + "     Mooonrise : " + moonrise )
+        myGlobalVars["riseData"] = ("Sunrise : " + sunrise + "     Mooonrise : " + moonrise )
         
     })
     .catch((error) => {
