@@ -1,0 +1,19 @@
+Forecast:
+- change the datat to be displayed in line chart
+  - Do minn / max temps instead of avg
+  - Try to add percipitatio  chance to the chart
+  - Try to add % cloud cover
+- Add a second layout to show icons with the percipitation / temps e.t.c
+
+
+Sunrise - moonrise:
+- We're missing the sunset / moonset
+
+
+Chores:
+- Checklist, reset them every week.
+  - Changes every day of the week
+    - unfinished ones rollsover to the next day
+
+Photo display:
+
