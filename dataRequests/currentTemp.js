@@ -10,10 +10,10 @@ let cIty="Boston,US"
 let uNits="metric"
 // Line 36 concatenates the date form the FULL_URL for openweathermap.org
 
-export function getWeather () {
+export async function getWeather () {
     let full_url = "https://api.openweathermap.org/data/2.5/weather?q="+cIty+"&units="+uNits+"&appid="+oWapi
     
-    fetch(full_url)
+    await fetch(full_url)
     .then(response => response.json())
     .then(data => {
         let data2 = data['main']

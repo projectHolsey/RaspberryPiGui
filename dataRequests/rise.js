@@ -8,18 +8,18 @@ let iPgeoLAT="42.4154"
 //Enter your locations's Longitude
 let iPgeolong="71.1565"
 
-export function rise() {
+export async function rise() {
 
     let full_url = 'https://api.ipgeolocation.io/astronomy?apiKey='+iPgeoAPI+'&lat='+iPgeoLAT+'&long='+iPgeolong
     
-    fetch(full_url)
+    await fetch(full_url)
     .then(response => response.json())
     .then(data => { 
         console.log(data);
         let moonrise = data['moonrise']
         let sunrise = data['sunrise']
     
-        myGlobalVars["riseData"] = ("Sunrise : " + sunrise + "     Mooonrise : " + moonrise )
+        myGlobalVars["riseData"] = ["Sunrise : " + sunrise, "Mooonrise : " + moonrise];
         
     })
     .catch((error) => {

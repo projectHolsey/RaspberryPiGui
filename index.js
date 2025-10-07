@@ -19,9 +19,9 @@ let riseData1 = null;
 
 
 // call the function every 10 minutes
-setInterval(getForecast(), 600000);
-setInterval(rise(), 600000);
-setInterval(getWeather(), 600000);
+// setInterval(getForecast(), 600000);
+// setInterval(rise(), 600000);
+// setInterval(getWeather(), 600000);
 
 
 
@@ -44,16 +44,16 @@ function createLayout(number) {
 
     console.log("Here");
 
-    if (number == 1) {
+    if (number === 1) {
         return layoutCurTemp();
     }
-    if (number == 2) {
+    if (number === 2) {
         return layoutRiseData();
     }
-    if (number == 3) {
+    if (number === 3) {
         return layoutForecast();
     } 
-    if (number == 4) {
+    if (number === 4) {
         return layoutCPUData();
     }
 
@@ -62,6 +62,7 @@ function createLayout(number) {
         let layout2 = document.createElement('div');
         let label2 = document.createElement('label');
         label2.innerHTML = myGlobalVars["tempcond"];
+
         layout2.appendChild(label2);
         return layout2;
     }
@@ -69,7 +70,7 @@ function createLayout(number) {
     function layoutRiseData() {
         let layout3 = document.createElement('div');
         let label3 = document.createElement('label');
-        label3.innerHTML = myGlobalVars["riseData"];
+        label3.innerHTML = myGlobalVars["riseData"].join("\n");
         layout3.appendChild(label3);
         return layout3;
     }
@@ -119,10 +120,9 @@ function createLayout(number) {
 function changeLayout(divElement) {
 
     console.log(divElement);
-    if (divElement.children.length == 0 ){
+    if (divElement.children.length === 0 ){
         // Create the first layout
-        divElement.appendChild(createLayout(1));
-        return;
+        divElement.appendChild(createLayout(4));
     }
 
     // We get the current child element shown
@@ -178,22 +178,13 @@ function createDiv(height, width, location=null){
 }
 
 
-/**
- * Function to read in the start file fields
- * TODO :
- * - if any fields are missing, we either don't start or request input
- */
-function readStartFile() {
-    
-}
 
 
-
-
-function main() {
+async function main() {
 
     let curTime = Date.now();
     let counter = 0;
+
     document.getElementById("main").addEventListener("click", ()=> {
         // Creating a listener that will close the application if the screen is click 5 times in quick succession
         if (Date.now() - curTime <= 5000) {
@@ -213,45 +204,46 @@ function main() {
     // if we want to make this easier, we'll need something that can find the current screen size.
 
     // start the 2 functions polling for data in background
-    getWeather();
-    rise();
-    getForecast();
+    await getWeather();
+    await rise();
+    await getForecast();
 
-    const screenHeight = 400;
-    const screenWidth = 700;
-    const numberOfSegments = 2;
+    // const screenHeight = 400;
+    // const screenWidth = 700;
+    // const numberOfSegments = 2;
 
-    // If there's only 1 segment, we make it the size of the screen
-    if (numberOfSegments == 1){
-        createDiv(screenHeight, screenWidth);
-    } else if (numberOfSegments == 2) {
-        // If there's 2, we make 2 that are half the height of the screen
-        createDiv(screenHeight / 2, screenWidth);
-        createDiv(screenHeight / 2, screenWidth);
-    } else if (numberOfSegments == 3) {
-        // if 3, we create 3 divs. 1 half the size of the screen, the other is 1/4 the size of screen
-        createDiv(screenHeight / 2, screenWidth);
-        createDiv(screenHeight / 2, screenWidth / 2);
-        createDiv(screenHeight / 2, screenWidth / 2);
-    } else {
-        // If it's > 3, we're only gonna make 4 layouts
-        createDiv(screenHeight / 2, screenWidth / 2);
-        createDiv(screenHeight / 2, screenWidth / 2);
-        createDiv(screenHeight / 2, screenWidth / 2);
-        createDiv(screenHeight / 2, screenWidth / 2);
-    }
+    // // If there's only 1 segment, we make it the size of the screen
+    // if (numberOfSegments == 1){
+    //     createDiv(screenHeight, screenWidth);
+    // } else if (numberOfSegments == 2) {
+    //     // If there's 2, we make 2 that are half the height of the screen
+    //     createDiv(screenHeight / 2, screenWidth);
+    //     createDiv(screenHeight / 2, screenWidth);
+    // } else if (numberOfSegments == 3) {
+    //     // if 3, we create 3 divs. 1 half the size of the screen, the other is 1/4 the size of screen
+    //     createDiv(screenHeight / 2, screenWidth);
+    //     createDiv(screenHeight / 2, screenWidth / 2);
+    //     createDiv(screenHeight / 2, screenWidth / 2);
+    // } else {
+    //     // If it's > 3, we're only gonna make 4 layouts
+    //     createDiv(screenHeight / 2, screenWidth / 2);
+    //     createDiv(screenHeight / 2, screenWidth / 2);
+    //     createDiv(screenHeight / 2, screenWidth / 2);
+    //     createDiv(screenHeight / 2, screenWidth / 2);
+    // }
 
     // Now create a bunch of onClick functions for each div created
-    for (let i = 0; i < numberOfSegments; i++) {
-
-        console.log(divContainers);
+    for (let i = 1; i < 5; i++) {
 
         let tmpDiv = document.getElementById("DivContainer" + i);
+        tmpDiv.id = "DivContainer" + divCountainerCountCount;
+        divContainers[tmpDiv.id] = 1;
+        console.log(divContainers);
 
         console.log(tmpDiv);
 
         // Add the div to the main section on screen
-        document.getElementById('main').appendChild(tmpDiv);
+        // document.getElementById('main').appendChild(tmpDiv);
 
         changeLayout(tmpDiv);
 

@@ -1,0 +1,11 @@
+/* style.css */
+body {
+    font-family: sans-serif;
+    color: #2eb6d5;
+    background: #2D3233;
+    background: linear-gradient(0deg, rgba(45, 50, 51, 1) 0%, rgba(61, 81, 85, 1) 60%, rgba(70, 117, 128, 1) 100%);
+}
+
+. {
+    color: navy;
+}

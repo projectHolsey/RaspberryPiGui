@@ -8,7 +8,7 @@ let cIty="Boston,US"
 let ApiKey = 'ME727NEVFDFPU4AE2BNKCZY53'
 
 
-export function getForecast() {
+export async function getForecast() {
     
     // get current time as unix (S) - 4h for east coast..
     let currentTime = (Date.now() / 1000) - (60 * 60 * 4)
@@ -73,7 +73,7 @@ export function getForecast() {
     console.log(' - Running query URL: ', ApiQuery)
     console.log()
 
-    fetch(ApiQuery)
+    await fetch(ApiQuery)
     .then(response => response.json())
     .then(weatherData => {
     
