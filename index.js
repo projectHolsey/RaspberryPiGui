@@ -51,12 +51,12 @@ async function createLayout(number) {
         return await layoutRiseData();
     }
     if (number === 3) {
-        return await layoutForecast();
-    } 
-    if (number === 4) {
         return await layoutCPUData();
     }
-
+    
+    if (number === 4) {
+        return await layoutForecast();
+    } 
 
     async function layoutCurTemp() {
         let layout2 = document.createElement('div');
@@ -120,22 +120,22 @@ async function createLayout(number) {
             data: {
                 labels: myGlobalVars["forecastdays"],
                 datasets: [
-                {
-                    label: 'Feelslike',
-                    data: myGlobalVars["forecast"],
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                },
+                // {
+                //     label: 'Feelslike',
+                //     data: myGlobalVars["forecast"],
+                //     borderColor: 'rgba(52, 24, 117, 1)',
+                //     tension: 0.1
+                // },
                 {
                     label: 'min',
                     data: myGlobalVars["forecastmin"],
-                    borderColor: 'rgb(75, 192, 192)',
+                    borderColor: 'rgba(49, 154, 223, 0.91)',
                     tension: 0.1
                 },
                 {
                     label: 'max',
                     data: myGlobalVars["forecastmax"],
-                    borderColor: 'rgb(75, 192, 192)',
+                    borderColor: 'rgba(194, 62, 62, 1)',
                     tension: 0.1
                 },
                 ]
@@ -177,7 +177,7 @@ async function changeLayout(divElement) {
         let newNode = await createLayout(4);
         divElement.appendChild(newNode);
     }
-
+    
     // We get the current child element shown
     let childElement = divElement.children[0];
     console.log(childElement)
@@ -186,13 +186,13 @@ async function changeLayout(divElement) {
     divElement.removeChild(childElement);
     
     // reset the counter
-    if (divContainers[divElement.id] == 4) {
+    if (divContainers[divElement.id] == 3) {
         divContainers[divElement.id] = 1
     } else {
         // increment the counter
         divContainers[divElement.id] = divContainers[divElement.id] + 1;
     }
-
+    
     let currentElementNum = divContainers[divElement.id];
     console.log(currentElementNum);
     // Add the new layout to the current div
@@ -289,6 +289,9 @@ async function main() {
     // Now create a bunch of onClick functions for each div created
     for (let i = 1; i < 5; i++) {
 
+        if (i === 3) {
+            continue;
+        }
         let tmpDiv = document.getElementById("DivContainer" + i);
         tmpDiv.id = "DivContainer" + divCountainerCountCount;
         divContainers[tmpDiv.id] = 1;
@@ -306,6 +309,11 @@ async function main() {
             changeLayout(tmpDiv);
         });
     }
+
+    // Adding the forecast as a permenant layout 
+    let tmpDiv = document.getElementById("DivContainer6");
+    let newNode = await createLayout(4);
+    tmpDiv.appendChild(newNode);
 }
 
 
