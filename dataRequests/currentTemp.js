@@ -35,8 +35,8 @@ export async function getWeather () {
         let condition2 = String(condition1)
         
         myGlobalVars["tempcond"] = {
-            "temperture" : tempc,
-            "condition": condition2,
+            "temperature" : tempc,
+            "description": condition2,
             "icon": weather[0]["icon"]
         };
         return tempc + "  " + condition2;

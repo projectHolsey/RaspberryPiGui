@@ -82,10 +82,14 @@ export async function getForecast() {
         for (let i = 0; i < weatherData['days'].length; i++) {
             console.log(weatherData["days"][i]['feelslike'])
             myGlobalVars["forecast"].push(String(weatherData["days"][i]['feelslike']))
+            myGlobalVars["forecastmin"].push(String(weatherData["days"][i]['feelslikemin']))
+            myGlobalVars["forecastmax"].push(String(weatherData["days"][i]['feelslikemax']))
             myGlobalVars["forecastdays"].push(weatherData["days"][i]['datetime'].slice(weatherData["days"][i]['datetime'].length - 5, weatherData["days"][i]['datetime'].length));
         }
 
         myGlobalVars["forecast"] = myGlobalVars["forecast"].slice(0, 7);  // only want first 7 days
+        myGlobalVars["forecastmin"] = myGlobalVars["forecastmin"].slice(0, 7);  // only want first 7 days
+        myGlobalVars["forecastmax"] = myGlobalVars["forecastmax"].slice(0, 7);  // only want first 7 days
 
         myGlobalVars["forecastdays"] = myGlobalVars["forecastdays"].slice(0, 7);  // only want first 7 days
 

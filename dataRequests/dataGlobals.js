@@ -2,6 +2,8 @@
 export let myGlobalVars = {
     "tmpCond": null,
     "forecast": [],
+    "forecastmin": [],
+    "forecastmax": [],
     "forecastdays": []
 }
 

@@ -62,7 +62,8 @@ async function createLayout(number) {
         let layout2 = document.createElement('div');
         let label2 = document.createElement('label');
         label2.innerHTML = myGlobalVars["tempcond"]["description"];
-        label2.innerHTML += myGlobalVars["tempcond"]["temperate"];
+        label2.innerHTML += " ";
+        label2.innerHTML += myGlobalVars["tempcond"]["temperature"];
         
         let icon = document.createElement('img');
         let iconToGet = myGlobalVars["tempcond"]["icon"];
@@ -91,25 +92,63 @@ async function createLayout(number) {
     function layoutForecast() {
         let layout4 = document.createElement('div');
         layout4.style.display = "block";
-        for (let i = 0; i < myGlobalVars["forecastdays"].length; i++) {
+        // for (let i = 0; i < myGlobalVars["forecastdays"].length; i++) {
             
-            let tmpDiv = document.createElement("div");
-            tmpDiv.style.display = "block";
+        //     let tmpDiv = document.createElement("div");
+        //     tmpDiv.style.display = "block";
             
-            let label = document.createElement('label');
-            label.innerHTML = myGlobalVars["forecastdays"][i];
+        //     let label = document.createElement('label');
+        //     label.innerHTML = myGlobalVars["forecastdays"][i];
 
-            let label1 = document.createElement('label');
-            label1.innerHTML = " : ";
+        //     let label1 = document.createElement('label');
+        //     label1.innerHTML = " : ";
             
-            let label4 = document.createElement('label');
-            label4.innerHTML = myGlobalVars["forecast"][i] + "C";
+        //     let label4 = document.createElement('label');
+        //     label4.innerHTML = myGlobalVars["forecast"][i] + "C";
             
-            tmpDiv.appendChild(label);
-            tmpDiv.appendChild(label1);
-            tmpDiv.appendChild(label4);
-            layout4.appendChild(tmpDiv);
-        }
+            
+        //     tmpDiv.appendChild(label);
+        //     tmpDiv.appendChild(label1);
+        //     tmpDiv.appendChild(label4);
+        //     layout4.appendChild(tmpDiv);
+        // }
+
+        let newCanvas = document.createElement("canvas");
+        const ctx = newCanvas.getContext('2d');
+        const myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: myGlobalVars["forecastdays"],
+                datasets: [
+                {
+                    label: 'Feelslike',
+                    data: myGlobalVars["forecast"],
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                },
+                {
+                    label: 'min',
+                    data: myGlobalVars["forecastmin"],
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                },
+                {
+                    label: 'max',
+                    data: myGlobalVars["forecastmax"],
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                },
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        layout4.appendChild(newCanvas);
         return layout4;
     }
 
