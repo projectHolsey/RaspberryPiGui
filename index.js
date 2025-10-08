@@ -1,7 +1,7 @@
 
 import { getForecast } from "./dataRequests/forecast.js";
 import { rise } from "./dataRequests/rise.js";
-import { getWeather}  from "./dataRequests/currentTemp.js";
+import { getWeather, getWeatherIcon }  from "./dataRequests/currentTemp.js";
 
 import { myGlobalVars } from "./dataRequests/dataGlobals.js"
 
@@ -40,30 +40,43 @@ let layouts = [1,2,3,4];
  * @param {int} number - number of layout you want to give  
  * @returns 
  */
-function createLayout(number) {
+async function createLayout(number) {
 
     console.log("Here");
 
     if (number === 1) {
-        return layoutCurTemp();
+        return await layoutCurTemp();
     }
     if (number === 2) {
-        return layoutRiseData();
+        return await layoutRiseData();
     }
     if (number === 3) {
-        return layoutForecast();
+        return await layoutForecast();
     } 
     if (number === 4) {
-        return layoutCPUData();
+        return await layoutCPUData();
     }
 
 
-    function layoutCurTemp() {
+    async function layoutCurTemp() {
         let layout2 = document.createElement('div');
         let label2 = document.createElement('label');
-        label2.innerHTML = myGlobalVars["tempcond"];
+        label2.innerHTML = myGlobalVars["tempcond"]["description"];
+        label2.innerHTML += myGlobalVars["tempcond"]["temperate"];
+        
+        let icon = document.createElement('img');
+        let iconToGet = myGlobalVars["tempcond"]["icon"];
 
+        const response = await getWeatherIcon();
+        const imageObjectURL = URL.createObjectURL(response);
+    
+        const image = document.createElement('img')
+        image.src = imageObjectURL;
+    
+        
         layout2.appendChild(label2);
+        layout2.appendChild(image);
+
         return layout2;
     }
     
@@ -117,12 +130,13 @@ function createLayout(number) {
  * @param {gui element} divElement 
  * @returns 
  */
-function changeLayout(divElement) {
+async function changeLayout(divElement) {
 
     console.log(divElement);
     if (divElement.children.length === 0 ){
         // Create the first layout
-        divElement.appendChild(createLayout(4));
+        let newNode = await createLayout(4);
+        divElement.appendChild(newNode);
     }
 
     // We get the current child element shown
@@ -143,7 +157,8 @@ function changeLayout(divElement) {
     let currentElementNum = divContainers[divElement.id];
     console.log(currentElementNum);
     // Add the new layout to the current div
-    divElement.appendChild(createLayout(currentElementNum));
+    let newnode = await createLayout(currentElementNum)
+    divElement.appendChild(newnode);
 
 }
 

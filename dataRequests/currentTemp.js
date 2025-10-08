@@ -19,26 +19,40 @@ export async function getWeather () {
         let data2 = data['main']
         let temp1 = data2["temp"]
         let tempc = String(temp1)+' C' //Change the C to F as required.
-
+        
         let pressure1 = main['pressure']
         let pressurep = "P: "+String(pressure1)+' hpa'
-
+        
         let humid1 = main['humidity']
         let humidh= "H:"+String(humid1)+' %'
-
+        
         let wind = "WS: " + String(data['wind']['speed']) +" MPH"
-
+        
         let handp1 = pressurep + "      " + humidh + "      " + wind
-
+        
         let weather = data['weather']
         let condition1 = weather [0]['description']
         let condition2 = String(condition1)
-
-        myGlobalVars["tempcond"] = tempc + " " + condition2;
+        
+        myGlobalVars["tempcond"] = {
+            "temperture" : tempc,
+            "condition": condition2,
+            "icon": weather[0]["icon"]
+        };
         return tempc + "  " + condition2;
         
     })
     .catch((error) => {
         console.log(error)
     });
+}
+
+
+export async function getWeatherIcon() {
+    let full_url = "https://openweathermap.org/img/wn/10d@2x.png"
+
+    const response = await fetch(full_url);
+
+    return response.blob();
+    
 }
