@@ -19,9 +19,9 @@ let riseData1 = null;
 
 
 // call the function every 10 minutes
-// setInterval(getForecast(), 600000);
-// setInterval(rise(), 600000);
-// setInterval(getWeather(), 600000);
+setInterval(getForecast(), 600000);
+setInterval(rise(), 600000);
+setInterval(getWeather(), 600000);
 
 
 
@@ -163,6 +163,27 @@ async function createLayout(number) {
 }
 
 
+
+async function createToDoList() {
+    
+    let todoList = document.getElementById("todochecklist");
+
+    for (let i = 0; i < 3; i++) {
+        let newDiv = document.createElement('div');
+        let input = document.createElement('input');
+        input.type = "checkbox";
+        input.id = "cl_item" + String(i);
+        let newLbl = document.createElement("label");
+        newLbl.textContent = "Checklist item " + String(i);
+        newLbl.htmlFor = "cl_item" + String(i);
+
+        newDiv.appendChild(input);
+        newDiv.appendChild(newLbl);
+        todoList.appendChild(newDiv);    
+    }
+
+}
+
 /**
  * Function to change the current layout of whatever div element was passed
  * 
@@ -174,7 +195,7 @@ async function changeLayout(divElement) {
     console.log(divElement);
     if (divElement.children.length === 0 ){
         // Create the first layout
-        let newNode = await createLayout(4);
+        let newNode = await createLayout(1);
         divElement.appendChild(newNode);
     }
     
@@ -287,7 +308,7 @@ async function main() {
     // }
 
     // Now create a bunch of onClick functions for each div created
-    for (let i = 1; i < 5; i++) {
+    for (let i = 1; i <= 2; i++) {
 
         if (i === 3) {
             continue;
@@ -311,9 +332,11 @@ async function main() {
     }
 
     // Adding the forecast as a permenant layout 
-    let tmpDiv = document.getElementById("DivContainer6");
+    let tmpDiv = document.getElementById("DivContainer3");
     let newNode = await createLayout(4);
     tmpDiv.appendChild(newNode);
+
+    createToDoList();
 }
 
 
