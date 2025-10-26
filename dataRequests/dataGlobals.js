@@ -7,7 +7,7 @@ export let myGlobalVars = {
     "forecastdays": []
 }
 
-export const resetListDays = 14; // reset the todo list every 14 days
+export const resetListDays = 14; // reset the myToDo list every 14 days
 
 export const daysOfWeek = [
     "Monday",
@@ -34,6 +34,9 @@ export const iconIdentifiers = {
     "clear sky": "13",
     "clear sky": "50"
 };
+
+
+export let myToDo = {};
 
 // export let tempcond1 = null;
 

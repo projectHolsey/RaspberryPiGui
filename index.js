@@ -2,8 +2,9 @@
 import { getForecast } from "./dataRequests/forecast.js";
 import { rise } from "./dataRequests/rise.js";
 import { getWeather, getWeatherIcon }  from "./dataRequests/currentTemp.js";
+import { populateToDo }  from "./dataRequests/todo.js";
 
-import { myGlobalVars } from "./dataRequests/dataGlobals.js"
+import { myGlobalVars, myToDo } from "./dataRequests/dataGlobals.js"
 
 // Creating an array for the number of divs on screen
 let divContainers = {};
@@ -165,21 +166,29 @@ async function createLayout(number) {
 
 
 async function createToDoList() {
+    await populateToDo();
     
     let todoList = document.getElementById("todochecklist");
 
-    for (let i = 0; i < 3; i++) {
-        let newDiv = document.createElement('div');
-        let input = document.createElement('input');
-        input.type = "checkbox";
-        input.id = "cl_item" + String(i);
-        let newLbl = document.createElement("label");
-        newLbl.textContent = "Checklist item " + String(i);
-        newLbl.htmlFor = "cl_item" + String(i);
+    for (let i = 0; i < Object.keys(myToDo).length; i++) {
+        if (myToDo[String(i)] === undefined){
+            continue;
+        }
+        for (let x = 0; x < myToDo[String(i)].length; x++){
+            let newDiv = document.createElement('div');
+            let input = document.createElement('input');
+            input.type = "checkbox";
+            input.id = "cl_item" + String(i);
+            let newLbl = document.createElement("label");
+            // newLbl.textContent = "Checklist item " + String(i);
+            newLbl.textContent = myToDo[i][x];
+            newLbl.htmlFor = "cl_item" + String(i);
+    
+            newDiv.appendChild(input);
+            newDiv.appendChild(newLbl);
+            todoList.appendChild(newDiv);    
 
-        newDiv.appendChild(input);
-        newDiv.appendChild(newLbl);
-        todoList.appendChild(newDiv);    
+        }
     }
 
 }
@@ -256,10 +265,10 @@ function createDiv(height, width, location=null){
 
 
 async function main() {
-
+    
     let curTime = Date.now();
     let counter = 0;
-
+    
     document.getElementById("main").addEventListener("click", ()=> {
         // Creating a listener that will close the application if the screen is click 5 times in quick succession
         if (Date.now() - curTime <= 5000) {
@@ -273,8 +282,10 @@ async function main() {
             let time = Date.now();
             counter += 1;
         }
-
+        
     })
+    
+    createToDoList();
 
     // if we want to make this easier, we'll need something that can find the current screen size.
 
@@ -336,7 +347,6 @@ async function main() {
     let newNode = await createLayout(4);
     tmpDiv.appendChild(newNode);
 
-    createToDoList();
 }
 
 
