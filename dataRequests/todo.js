@@ -14,6 +14,20 @@ function addWaterPlants() {
         if (i % 9 === 0) {
             myToDo[String(i)].push("Sink water plants");
         }
+
+        if (i % 7 === 0) {
+            myToDo[String(i)].push("Put on vaccuum")
+            myToDo[String(i)].push("Clean kitchen area")
+            myToDo[String(i)].push("Take out trash")
+            myToDo[String(i)].push("Take out Recycling")
+        }
+        if (i % 14 === 0) {
+            myToDo[String(i)].push("Mop floors")
+            myToDo[String(i)].push("Clean bed(s)")
+            myToDo[String(i)].push("Clean Bathroom")
+        }
+
+
     }    
 }
     
