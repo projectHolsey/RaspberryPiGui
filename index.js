@@ -2,7 +2,7 @@
 import { getForecast } from "./dataRequests/forecast.js";
 import { rise } from "./dataRequests/rise.js";
 import { getWeather, getWeatherIcon }  from "./dataRequests/currentTemp.js";
-import { populateToDo }  from "./dataRequests/todo.js";
+import { populateToDo, readBacklog }  from "./dataRequests/todo.js";
 
 import { myGlobalVars, myToDo } from "./dataRequests/dataGlobals.js"
 
@@ -17,12 +17,10 @@ let handp1 = null;
 // rise globals
 let riseData1 = null;
 
-
-
 // call the function every 10 minutes
-setInterval(getForecast(), 600000);
-setInterval(rise(), 600000);
-setInterval(getWeather(), 600000);
+// setInterval(await getForecast(), 600000);
+// setInterval(await rise(), 600000);
+// setInterval(await getWeather(), 600000);
 
 
 
