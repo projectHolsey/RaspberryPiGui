@@ -31,6 +31,30 @@ function addWaterPlants() {
     }    
 }
     
+
+`
+OK, so i know how to implement a backlog.
+
+WE're going to write all the tasks to file as JSON.
+Each day will have a series of tasks associated with it.
+
+We will get the current date and extract the current day's tasks
+Then we'll look through the json file and see if there's anything that wasn't marked complete over the last 7 days.
+    Anything incomplete will be added to the to-do list.
+Anything older than 7 days will be ignored and we can either delete it from history or just keepit there for later reference because.. why not.
+
+Then when you click the current task, we'll look to see which day it was associated with and we'll write it to file there.
+
+Simple.
+
+.... Or we can take this time to learn something like mongodb .... if we wanted.
+ --- that may be a future change
+
+We can get this rpi to constantly download the latest todo list every so often. Hopefullly that will work ok.
+> maybe it gets the newest one everyday at 3am, then restarts and a crontab job runs on startup to start the webserver e.t.c
+    > will also need to renavigate to the webpage.. and full screen
+
+`
     
 export async function populateToDo() {
     // I'll leave it as a dict for the moment as i may want to change this to something else later on.
